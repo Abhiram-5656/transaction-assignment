@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.example.transactionstarter.TransactionStarterApplicationTests" time="0.585" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.example.transactionstarter.TransactionControllerTest" time="9.017" tests="7" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -49,7 +49,7 @@
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\GOPI\AppData\Local\Temp\"/>
     <property name="catalina.home" value="C:\Users\GOPI\AppData\Local\Temp\tomcat.0.17774491084542268754"/>
-    <property name="com.zaxxer.hikari.pool_number" value="2"/>
+    <property name="com.zaxxer.hikari.pool_number" value="1"/>
     <property name="java.version" value="22.0.2"/>
     <property name="user.dir" value="C:\Users\GOPI\OneDrive\Desktop\toucan\toucan-springboot-starter"/>
     <property name="os.arch" value="amd64"/>
@@ -67,9 +67,9 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="66.0"/>
   </properties>
-  <testcase name="contextLoads" classname="com.example.transactionstarter.TransactionStarterApplicationTests" time="0.004">
-    <system-out><![CDATA[2026-08-28T05:30:16.065+05:30  INFO 15600 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.transactionstarter.TransactionStarterApplicationTests]: TransactionStarterApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-08-28T05:30:16.068+05:30  INFO 15600 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.transactionstarter.TransactionStarterApplication for test class com.example.transactionstarter.TransactionStarterApplicationTests
+  <testcase name="shouldReturnNotFoundForUnknownTransaction" classname="com.example.transactionstarter.TransactionControllerTest" time="1.163">
+    <system-out><![CDATA[05:30:07.291 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.transactionstarter.TransactionControllerTest]: TransactionControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+05:30:07.486 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.transactionstarter.TransactionStarterApplication for test class com.example.transactionstarter.TransactionControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -80,28 +80,50 @@
 
  :: Spring Boot ::                (v3.5.5)
 
-2026-08-28T05:30:16.115+05:30  INFO 15600 --- [           main] c.e.t.TransactionStarterApplicationTests : Starting TransactionStarterApplicationTests using Java 22.0.2 with PID 15600 (started by GOPI in C:\Users\GOPI\OneDrive\Desktop\toucan\toucan-springboot-starter)
-2026-08-28T05:30:16.116+05:30  INFO 15600 --- [           main] c.e.t.TransactionStarterApplicationTests : No active profile set, falling back to 1 default profile: "default"
-2026-08-28T05:30:16.313+05:30  INFO 15600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-08-28T05:30:16.334+05:30  INFO 15600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 1 JPA repository interface.
-2026-08-28T05:30:16.413+05:30  INFO 15600 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2026-08-28T05:30:16.418+05:30  INFO 15600 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2026-08-28T05:30:16.432+05:30  INFO 15600 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-08-28T05:30:16.434+05:30  INFO 15600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2026-08-28T05:30:16.437+05:30  INFO 15600 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:transactions user=SA
-2026-08-28T05:30:16.437+05:30  INFO 15600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2026-08-28T05:30:16.438+05:30  INFO 15600 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
-	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+2026-08-28T05:30:08.264+05:30  INFO 15600 --- [           main] c.e.t.TransactionControllerTest          : Starting TransactionControllerTest using Java 22.0.2 with PID 15600 (started by GOPI in C:\Users\GOPI\OneDrive\Desktop\toucan\toucan-springboot-starter)
+2026-08-28T05:30:08.265+05:30  INFO 15600 --- [           main] c.e.t.TransactionControllerTest          : No active profile set, falling back to 1 default profile: "default"
+2026-08-28T05:30:09.085+05:30  INFO 15600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-28T05:30:09.176+05:30  INFO 15600 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 1 JPA repository interface.
+2026-08-28T05:30:09.973+05:30  INFO 15600 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-08-28T05:30:10.005+05:30  INFO 15600 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-08-28T05:30:10.006+05:30  INFO 15600 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-08-28T05:30:10.106+05:30  INFO 15600 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-08-28T05:30:10.107+05:30  INFO 15600 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1818 ms
+2026-08-28T05:30:10.371+05:30  INFO 15600 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-28T05:30:10.507+05:30  INFO 15600 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-08-28T05:30:10.582+05:30  INFO 15600 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-08-28T05:30:11.080+05:30  INFO 15600 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-28T05:30:11.132+05:30  INFO 15600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-28T05:30:11.429+05:30  INFO 15600 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:transactions user=SA
+2026-08-28T05:30:11.432+05:30  INFO 15600 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-28T05:30:11.521+05:30  INFO 15600 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 2.3.232
 	Autocommit mode: undefined/unknown
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-08-28T05:30:16.476+05:30  INFO 15600 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-08-28T05:30:16.480+05:30  INFO 15600 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-08-28T05:30:16.612+05:30  INFO 15600 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:transactions'
-2026-08-28T05:30:16.634+05:30  INFO 15600 --- [           main] c.e.t.TransactionStarterApplicationTests : Started TransactionStarterApplicationTests in 0.556 seconds (process running for 10.302)
+2026-08-28T05:30:12.700+05:30  INFO 15600 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-28T05:30:12.751+05:30  INFO 15600 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-28T05:30:13.643+05:30  INFO 15600 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:transactions'
+2026-08-28T05:30:14.022+05:30  INFO 15600 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 50718 (http) with context path '/'
+2026-08-28T05:30:14.032+05:30  INFO 15600 --- [           main] c.e.t.TransactionControllerTest          : Started TransactionControllerTest in 6.3 seconds (process running for 7.7)
+2026-08-28T05:30:15.061+05:30  INFO 15600 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-08-28T05:30:15.061+05:30  INFO 15600 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-08-28T05:30:15.063+05:30  INFO 15600 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 ]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\GOPI\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.7\byte-buddy-agent-1.17.7.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
   </testcase>
+  <testcase name="shouldRejectStatusChangeFromCompletedTransaction" classname="com.example.transactionstarter.TransactionControllerTest" time="0.183"/>
+  <testcase name="shouldCreateTransactionSuccessfully" classname="com.example.transactionstarter.TransactionControllerTest" time="0.535"/>
+  <testcase name="shouldUpdateTransactionStatus" classname="com.example.transactionstarter.TransactionControllerTest" time="0.024"/>
+  <testcase name="shouldRejectInvalidTransaction" classname="com.example.transactionstarter.TransactionControllerTest" time="0.019"/>
+  <testcase name="shouldGetAllTransactionsForCustomer" classname="com.example.transactionstarter.TransactionControllerTest" time="0.068"/>
+  <testcase name="shouldRejectDuplicateTransactionId" classname="com.example.transactionstarter.TransactionControllerTest" time="0.017"/>
 </testsuite>
