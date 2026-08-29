@@ -2,7 +2,7 @@
 
 A Spring Boot REST API for managing customer transactions.
 
-This project implements the Customer Transactions exercise using Java 17, Spring Boot, Spring Data JPA, and an H2 embedded database.
+This project implements the Customer Transactions coding exercise using Java 17, Spring Boot, Spring Data JPA, and an H2 embedded database.
 
 ## Technologies Used
 
@@ -11,13 +11,70 @@ This project implements the Customer Transactions exercise using Java 17, Spring
 - Spring Web
 - Spring Data JPA
 - H2 Database
-- Maven
+- Maven Wrapper
 - JUnit 5
 - Spring Boot Test
 
-## Features
+---
 
-The application supports the following operations:
+# Quick Start
+
+## Prerequisites
+
+- Java 17
+- Git
+
+The project includes the Maven Wrapper, so Maven does not need to be installed separately.
+
+Check the Java version:
+
+```bash
+java -version
+```
+
+## Build and Test
+
+### Windows
+
+```powershell
+.\mvnw.cmd clean test
+```
+
+### Linux/macOS
+
+```bash
+./mvnw clean test
+```
+
+The project must build successfully and all tests must pass.
+
+## Start the Application
+
+### Windows
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+### Linux/macOS
+
+```bash
+./mvnw spring-boot:run
+```
+
+The application runs on:
+
+```text
+http://localhost:8080
+```
+
+No separate Maven or database installation is required.
+
+---
+
+# Features
+
+The application supports four transaction operations:
 
 1. Create a transaction
 2. Get a transaction by transaction ID
@@ -26,102 +83,45 @@ The application supports the following operations:
 
 ---
 
-## Project Structure
+# Testing
 
-```text
-src
-├── main
-│   ├── java
-│   │   └── com.example.transactionstarter
-│   │       ├── controller
-│   │       │   └── TransactionController.java
-│   │       │
-│   │       ├── dto
-│   │       │   ├── CreateTransactionRequest.java
-│   │       │   └── UpdateStatusRequest.java
-│   │       │
-│   │       ├── entity
-│   │       │   └── Transaction.java
-│   │       │
-│   │       ├── enums
-│   │       │   ├── Currency.java
-│   │       │   ├── TransactionStatus.java
-│   │       │   └── TransactionType.java
-│   │       │
-│   │       ├── exception
-│   │       │   ├── DuplicateTransactionException.java
-│   │       │   ├── GlobalExceptionHandler.java
-│   │       │   └── TransactionNotFoundException.java
-│   │       │
-│   │       ├── repository
-│   │       │   └── TransactionRepository.java
-│   │       │
-│   │       ├── service
-│   │       │   └── TransactionService.java
-│   │       │
-│   │       └── sample
-│   │
-│   └── resources
-│       └── application.yml
-│
-└── test
-    └── java
-        └── com.example.transactionstarter
-            ├── TransactionStarterApplicationTests.java
-            └── TransactionControllerTest.java
+Automated integration tests are implemented using **JUnit 5, Spring Boot Test, and TestRestTemplate**.
+
+The tests cover:
+
+- Application context loading
+- Successful transaction creation
+- Invalid transaction validation
+- Duplicate transaction ID
+- Transaction not found
+- Transaction status update
+- Invalid status transition
+- Retrieving transactions for a customer
+
+## Test Run
+
+The complete test suite was executed using:
+
+```powershell
+.\mvnw.cmd clean test
 ```
 
-### Layer Responsibilities
-
-| Layer | Responsibility |
-|---|---|
-| Controller | Handles REST API requests and responses |
-| Service | Contains transaction business logic |
-| Repository | Handles database operations |
-| Entity | Represents transaction data in the database |
-| DTO | Handles API request data and validation |
-| Enums | Defines supported currencies, transaction types, and statuses |
-| Exception | Handles application-specific errors |
-| Test | Contains automated tests |
-
----
-
-## Transaction Fields
-
-Each transaction contains:
-
-- Transaction ID
-- Customer ID
-- Amount
-- Currency
-- Transaction Type
-- Transaction Status
-
-### Supported Currencies
+Actual test result:
 
 ```text
-INR
-USD
-EUR
-GBP
+[INFO] Results:
+
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11.537 s
+[INFO] Finished at: 2026-08-30T03:24:12+05:30
+[INFO] ------------------------------------------------------------------------
 ```
 
-### Supported Transaction Types
-
-```text
-PAYMENT
-REFUND
-TRANSFER
-```
-
-### Supported Transaction Statuses
-
-```text
-PENDING
-COMPLETED
-FAILED
-CANCELLED
-```
+The project successfully builds and all tests pass with zero failures and zero errors.
 
 ---
 
@@ -144,13 +144,11 @@ http://localhost:8080/api/transactions
 
 ## 1. Create Transaction
 
-### Endpoint
+### Request
 
 ```http
 POST /api/transactions
 ```
-
-### Request
 
 ```json
 {
@@ -175,27 +173,21 @@ POST /api/transactions
 }
 ```
 
-### HTTP Status
+HTTP Status:
 
 ```text
 201 Created
 ```
 
-A newly created transaction always starts with `PENDING` status.
+New transactions always start with `PENDING` status.
 
-The client does not provide the initial transaction status during creation.
+The client does not provide the initial status during creation.
 
 ---
 
 ## 2. Get Transaction
 
-### Endpoint
-
-```http
-GET /api/transactions/{transactionId}
-```
-
-### Example
+### Request
 
 ```http
 GET /api/transactions/TXN001
@@ -214,7 +206,7 @@ GET /api/transactions/TXN001
 }
 ```
 
-### HTTP Status
+HTTP Status:
 
 ```text
 200 OK
@@ -230,19 +222,11 @@ If the transaction does not exist:
 
 ## 3. Update Transaction Status
 
-### Endpoint
-
-```http
-PATCH /api/transactions/{transactionId}/status
-```
-
-### Example
+### Request
 
 ```http
 PATCH /api/transactions/TXN001/status
 ```
-
-### Request
 
 ```json
 {
@@ -263,7 +247,7 @@ PATCH /api/transactions/TXN001/status
 }
 ```
 
-### HTTP Status
+HTTP Status:
 
 ```text
 200 OK
@@ -273,13 +257,7 @@ PATCH /api/transactions/TXN001/status
 
 ## 4. Get Customer Transactions
 
-### Endpoint
-
-```http
-GET /api/transactions/customer/{customerId}
-```
-
-### Example
+### Request
 
 ```http
 GET /api/transactions/customer/CUS001
@@ -308,7 +286,7 @@ GET /api/transactions/customer/CUS001
 ]
 ```
 
-### HTTP Status
+HTTP Status:
 
 ```text
 200 OK
@@ -339,7 +317,7 @@ The following validation rules are implemented:
 
 ## Initial Transaction Status
 
-Every newly created transaction starts as:
+Every newly created transaction starts with:
 
 ```text
 PENDING
@@ -351,7 +329,7 @@ Status changes are performed using the dedicated status-update endpoint.
 
 ## Status Transitions
 
-The following transitions are supported:
+Supported transitions are:
 
 ```text
 PENDING → COMPLETED
@@ -365,14 +343,6 @@ For example:
 
 ```text
 COMPLETED → PENDING
-```
-
-is rejected.
-
-Similarly:
-
-```text
-CANCELLED → COMPLETED
 ```
 
 is rejected.
@@ -424,7 +394,7 @@ H2 Database
 
 ### Controller
 
-Handles HTTP requests and responses and delegates business operations to the service layer.
+Handles HTTP requests and responses and delegates operations to the service layer.
 
 ### Service
 
@@ -439,16 +409,7 @@ Contains the main transaction business logic, including:
 
 ### Repository
 
-Uses Spring Data JPA to communicate with the database.
-
-The repository provides standard database operations such as:
-
-- `save()`
-- `findById()`
-- `findAll()`
-- `existsById()`
-
-It also provides customer-based transaction retrieval.
+Uses Spring Data JPA to perform database operations.
 
 ### Entity
 
@@ -456,9 +417,7 @@ The `Transaction` entity represents transaction data stored in the database.
 
 ### DTO
 
-DTOs are used to separate API request data from the database entity.
-
-The application uses request DTOs for:
+DTOs separate API request data from the database entity and are used for:
 
 - Creating transactions
 - Updating transaction status
@@ -473,7 +432,46 @@ Enums define the supported:
 
 ### Exception
 
-Custom exceptions and a global exception handler are used to return appropriate HTTP error responses.
+Custom exceptions and a global exception handler provide appropriate HTTP error responses.
+
+---
+
+# Project Structure
+
+```text
+src
+├── main
+│   ├── java
+│   │   └── com.example.transactionstarter
+│   │       ├── controller
+│   │       │   └── TransactionController.java
+│   │       ├── dto
+│   │       │   ├── CreateTransactionRequest.java
+│   │       │   └── UpdateStatusRequest.java
+│   │       ├── entity
+│   │       │   └── Transaction.java
+│   │       ├── enums
+│   │       │   ├── Currency.java
+│   │       │   ├── TransactionStatus.java
+│   │       │   └── TransactionType.java
+│   │       ├── exception
+│   │       │   ├── DuplicateTransactionException.java
+│   │       │   ├── GlobalExceptionHandler.java
+│   │       │   └── TransactionNotFoundException.java
+│   │       ├── repository
+│   │       │   └── TransactionRepository.java
+│   │       └── service
+│   │           └── TransactionService.java
+│   │
+│   └── resources
+│       └── application.yml
+│
+└── test
+    └── java
+        └── com.example.transactionstarter
+            ├── TransactionStarterApplicationTests.java
+            └── TransactionControllerTest.java
+```
 
 ---
 
@@ -481,7 +479,7 @@ Custom exceptions and a global exception handler are used to return appropriate 
 
 The application uses the H2 embedded database provided by the starter project.
 
-Database configuration is located in:
+Database configuration:
 
 ```text
 src/main/resources/application.yml
@@ -493,81 +491,51 @@ The H2 database is used for local development and testing.
 
 ---
 
-# Running the Application
+# Supported Values
 
-## Prerequisites
-
-- Java 17
-- Git
-
-The project includes the Maven Wrapper, so Maven does not need to be installed separately.
-
-Check the Java version:
-
-```bash
-java -version
-```
-
----
-
-## Run Tests
-
-### Windows
-
-```cmd
-mvnw.cmd clean test
-```
-
-### Linux/macOS
-
-```bash
-./mvnw clean test
-```
-
----
-
-## Start the Application
-
-### Windows
-
-```cmd
-mvnw.cmd spring-boot:run
-```
-
-### Linux/macOS
-
-```bash
-./mvnw spring-boot:run
-```
-
-The application runs on:
+## Currencies
 
 ```text
-http://localhost:8080
+INR
+USD
+EUR
+GBP
+```
+
+## Transaction Types
+
+```text
+PAYMENT
+REFUND
+TRANSFER
+```
+
+## Transaction Statuses
+
+```text
+PENDING
+COMPLETED
+FAILED
+CANCELLED
 ```
 
 ---
 
-# Testing
+# Clean Clone Verification
 
-The project includes automated tests using JUnit 5 and Spring Boot Test.
+The project was verified from a clean clone of the repository.
 
-The tests cover:
+The verification process was:
 
-- Application context loading
-- Successful transaction creation
-- Invalid transaction validation
-- Duplicate transaction ID
-- Transaction not found
-- Transaction status update
-- Invalid status transition
-- Retrieving transactions for a customer
-
-Run all tests using:
-
-```cmd
-mvnw.cmd clean test
+```text
+1. Clone the repository
+2. Run the test suite
+3. Confirm all tests pass
+4. Start the application
+5. Verify the REST APIs
 ```
+
+The project can be built and tested using the Maven Wrapper without installing Maven separately.
 
 ---
 
@@ -580,9 +548,9 @@ The following assumptions were made for the exercise:
 3. Transaction amounts must be greater than zero.
 4. Supported currencies are INR, USD, EUR, and GBP.
 5. Supported transaction types are PAYMENT, REFUND, and TRANSFER.
-6. New transactions always start with `PENDING` status.
-7. `COMPLETED` and `CANCELLED` are treated as final states.
-8. H2 is used as the database because it is provided by the starter project.
+6. New transactions always start with `PENDING`.
+7. `COMPLETED` and `CANCELLED` are final states.
+8. H2 is used because it is provided by the starter project.
 9. Authentication and authorization are outside the scope of this exercise.
 
 ---
@@ -597,47 +565,23 @@ Current limitations include:
 - No pagination for customer transactions.
 - No transaction audit/history.
 - H2 is used instead of a production database.
-- No currency conversion.
 - No API rate limiting.
 
 ---
 
 # Possible Improvements
 
-For a production-ready implementation, the following improvements could be added:
+For a production-ready implementation, the following could be added:
 
-- Add authentication and authorization.
-- Add pagination and sorting.
-- Add transaction history/audit logging.
-- Use PostgreSQL or MySQL for production.
-- Add database migrations using Flyway or Liquibase.
-- Add OpenAPI/Swagger documentation.
-- Add structured logging and monitoring.
-- Add more advanced domain-specific validation.
-- Add concurrency handling for simultaneous transaction updates.
-
----
-
-# Verification
-
-To verify the application:
-
-1. Clone the repository.
-2. Run the test suite:
-
-```cmd
-mvnw.cmd clean test
-```
-
-3. Start the application:
-
-```cmd
-mvnw.cmd spring-boot:run
-```
-
-4. Test the APIs using Postman.
-
-The application should successfully build, start, and perform all four required transaction operations.
+- Authentication and authorization
+- Pagination and sorting
+- Transaction history/audit logging
+- PostgreSQL or MySQL for production
+- Database migrations using Flyway or Liquibase
+- OpenAPI/Swagger documentation
+- Structured logging and monitoring
+- More advanced domain-specific validation
+- Concurrency handling for simultaneous transaction updates
 
 ---
 
@@ -653,6 +597,7 @@ AI assistance was used during development for:
 - Documentation
 
 Detailed information about AI usage is provided separately in:
+
 ```text
 AI_USAGE_DISCLOSURE.md
 ```
