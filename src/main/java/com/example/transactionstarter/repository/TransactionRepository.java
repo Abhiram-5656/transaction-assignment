@@ -9,4 +9,4 @@ public interface TransactionRepository
         extends JpaRepository<Transaction, String> {
 
     List<Transaction> findByCustomerId(String customerId);
-}
+}   

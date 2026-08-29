@@ -48,6 +48,7 @@ class TransactionControllerTest {
                     "amount": 1000.00,
                     "currency": "INR",
                     "transactionType": "PAYMENT"
+                    
                 }
                 """;
 
@@ -101,7 +102,7 @@ class TransactionControllerTest {
                     "customerId": "",
                     "amount": -100.00,
                     "currency": "INR",
-                    "transactionType": "PAYMENT"
+                    "transactionType": "PAYMENT",
                 }
                 """;
 
